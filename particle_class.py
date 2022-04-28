@@ -1,5 +1,18 @@
-# Particle class for N-body simulation:
+#IMPORTING PACKAGES:
+import os
+import random
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy import pi
+import h5py
+import sys
+import particle_class
 
+
+
+
+
+# Particle class:
 class particle:
     xpos = 0
     ypos = 0
@@ -18,7 +31,10 @@ class particle:
         return np.array([vx,vy])
 
     
+    
 
+    
+# Universe class:
 class universe:
     particles = np.array([])
     
@@ -32,6 +48,6 @@ class universe:
             self.particles = np.concatenate(particles,part)
         
     def add(self,part):
-    particles = part.append(part)
+        particles = part.append(part)
     def plot(self):
         plt.plot()
