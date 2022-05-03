@@ -23,8 +23,6 @@ class particle:
         self.ypos = y
         self.theta = theta
     
-
-
     def pos(self):
         return np.array([self.xpos,self.ypos])
     
@@ -41,6 +39,7 @@ class universe:
     tbin = 0.1
     Lx = 0
     Ly = 0
+    v = 2.5
 
     def __init__(self,N,Lx,Ly):
         self.Lx=Lx
@@ -50,8 +49,6 @@ class universe:
             y = random.random()*self.Ly
             theta = random.random()*(2*np.pi)
             self.part = np.append(self.part,particle(x,y,theta))
-    
-
 
     def show(self):
         return self.part
@@ -59,11 +56,14 @@ class universe:
     def add(self,newpart):
         self.part = np.append(self.part,newpart)
     
-    def plot(self):
-        x = [i.xpos for i in self.part]
+    def plot(self):                              # INTENTAR HACER UNA VASRIABLE BOOL 'YES'/'NO' PARA MOSTRAR O NO
+        x = [i.xpos for i in self.part]          # LA FIGURA Y ASÍ PODER JUGAR OCN HACER ANIMACIONES CON WHOLE
         y = [i.ypos for i in self.part]
+        theta = [i.theta for i in self.part]
+        u = 10*x*np.cos(theta)
+        v = 10*y*np.sin(theta)
         plt.figure()
-        plt.plot(x,y,'.')
+        plt.plot(x,y,'.',ms=10)
         plt.xlim((0,self.Lx))
         plt.ylim((0,self.Ly))
         plt.show()
@@ -85,3 +85,4 @@ class universe:
             self.plot()
             self.part = self.nextframe()
             i+=self.tbin
+        
