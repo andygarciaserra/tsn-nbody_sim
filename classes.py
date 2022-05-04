@@ -15,19 +15,26 @@ import random
 class particle:
     xpos = 0
     ypos = 0
-    theta = 0
     v = 2.5
+    vx = 0
+    vy = 0
 
-    def __init__(self,x,y,theta):
+    def __init__(self,x,y,vx,vy):
         self.xpos = x
         self.ypos = y
+<<<<<<< HEAD
+        self.vx = vx
+        self.vy = vy
+
+=======
         self.theta = theta
     
+>>>>>>> 39ae0156608c4cbdc38dbd797eb56167a9c1795d
     def pos(self):
-        return np.array([self.xpos,self.ypos])
+        return print('[x,y]= '+str(np.array([self.x,self.y])))
     
     def vel(self):
-        return np.array([self.v*np.cos(theta),self.v*np.sin(theta)])
+        return print('[vx,vy]= '+str(np.array([self.vx,self.vy])))
 
     
     
@@ -36,6 +43,7 @@ class particle:
 # Universe class:
 class universe:
     part = np.array([])
+    frames = np.array([])
     tbin = 0.1
     Lx = 0
     Ly = 0
@@ -48,7 +56,13 @@ class universe:
             x = random.random()*self.Lx
             y = random.random()*self.Ly
             theta = random.random()*(2*np.pi)
+<<<<<<< HEAD
+            vx = self.v*np.cos(theta) 
+            vy = self.v*np.sin(theta)
+            self.part = np.append(self.part,particle(x,y,vx,vy))
+=======
             self.part = np.append(self.part,particle(x,y,theta))
+>>>>>>> 39ae0156608c4cbdc38dbd797eb56167a9c1795d
 
     def show(self):
         return self.part
@@ -59,30 +73,46 @@ class universe:
     def plot(self):                              # INTENTAR HACER UNA VASRIABLE BOOL 'YES'/'NO' PARA MOSTRAR O NO
         x = [i.xpos for i in self.part]          # LA FIGURA Y ASÍ PODER JUGAR OCN HACER ANIMACIONES CON WHOLE
         y = [i.ypos for i in self.part]
+<<<<<<< HEAD
+=======
         theta = [i.theta for i in self.part]
         u = 10*x*np.cos(theta)
         v = 10*y*np.sin(theta)
         plt.figure()
         plt.plot(x,y,'.',ms=10)
+>>>>>>> 39ae0156608c4cbdc38dbd797eb56167a9c1795d
         plt.xlim((0,self.Lx))
         plt.ylim((0,self.Ly))
-        plt.show()
+        plt.scatter(x,y,marker='.')
+        plt.show(block=False)
+        plt.pause(.05)
+        plt.clf()
+        
+ #   def gif(self):
+        
 
     def nextframe(self):
-        newpart = np.array([])
-        for i in self.part:
-            print([i.xpos,i.ypos,i.v])
-            newpartx = i.xpos + (i.v * self.tbin * np.cos(i.theta))
-            newparty = i.ypos + (i.v * self.tbin * np.sin(i.theta))
-            newparti = particle(newpartx, newparty, i.theta)
-            newpart = np.append(newpart, newparti)
-        return newpart
+        for i in range(len(self.part)):
+            newpartx = self.part[i].xpos + self.part[i].vx * self.tbin
+            newparty = self.part[i].ypos + self.part[i].vy * self.tbin
+        
+        # Border collision:
+            if(newpartx<0 or newpartx>self.Lx):
+                self.part[i].vx = -self.part[i].vx
+                newpartx = self.part[i].xpos + self.part[i].vx * self.tbin
+            if(newparty<0 or newparty>self.Ly):  
+                self.part[i].vy = -self.part[i].vy 
+                newparty = self.part[i].ypos + self.part[i].vy * self.tbin
+
+            self.part[i] = particle(newpartx,newparty,self.part[i].vx,self.part[i].vy)
+        return self.part
 
     def whole(self,t):
         totalt = t
         i = 0
         while i < totalt:
-            self.plot()
+            self.frames = np.append(self.frames,self.part)
             self.part = self.nextframe()
+            self.plot()
             i+=self.tbin
         
