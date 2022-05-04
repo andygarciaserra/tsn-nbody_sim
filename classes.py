@@ -22,14 +22,9 @@ class particle:
     def __init__(self,x,y,vx,vy):
         self.xpos = x
         self.ypos = y
-<<<<<<< HEAD
         self.vx = vx
         self.vy = vy
 
-=======
-        self.theta = theta
-    
->>>>>>> 39ae0156608c4cbdc38dbd797eb56167a9c1795d
     def pos(self):
         return print('[x,y]= '+str(np.array([self.x,self.y])))
     
@@ -56,13 +51,9 @@ class universe:
             x = random.random()*self.Lx
             y = random.random()*self.Ly
             theta = random.random()*(2*np.pi)
-<<<<<<< HEAD
             vx = self.v*np.cos(theta) 
             vy = self.v*np.sin(theta)
             self.part = np.append(self.part,particle(x,y,vx,vy))
-=======
-            self.part = np.append(self.part,particle(x,y,theta))
->>>>>>> 39ae0156608c4cbdc38dbd797eb56167a9c1795d
 
     def show(self):
         return self.part
@@ -73,23 +64,12 @@ class universe:
     def plot(self):                              # INTENTAR HACER UNA VASRIABLE BOOL 'YES'/'NO' PARA MOSTRAR O NO
         x = [i.xpos for i in self.part]          # LA FIGURA Y ASÍ PODER JUGAR OCN HACER ANIMACIONES CON WHOLE
         y = [i.ypos for i in self.part]
-<<<<<<< HEAD
-=======
-        theta = [i.theta for i in self.part]
-        u = 10*x*np.cos(theta)
-        v = 10*y*np.sin(theta)
-        plt.figure()
-        plt.plot(x,y,'.',ms=10)
->>>>>>> 39ae0156608c4cbdc38dbd797eb56167a9c1795d
         plt.xlim((0,self.Lx))
         plt.ylim((0,self.Ly))
         plt.scatter(x,y,marker='.')
         plt.show(block=False)
         plt.pause(.05)
         plt.clf()
-        
- #   def gif(self):
-        
 
     def nextframe(self):
         for i in range(len(self.part)):
