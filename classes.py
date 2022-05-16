@@ -31,8 +31,8 @@ class particle:
     def vel(self):
         return print('[vx,vy]= '+str(np.array([self.vx,self.vy])))
 
-    
-    
+
+ 
 
     
 # Universe class:
@@ -43,10 +43,13 @@ class universe:
     Lx = 0
     Ly = 0
     v = 2.5
+    fig = ''
+    figyn = ''
 
-    def __init__(self,N,Lx,Ly):
-        self.Lx=Lx
-        self.Ly=Ly
+    def __init__(self,N,Lx,Ly,boolfig):
+        self.fig = boolfig
+        self.Lx = Lx
+        self.Ly = Ly
         for i in range(N):
             x = random.random()*self.Lx
             y = random.random()*self.Ly
@@ -61,15 +64,19 @@ class universe:
     def add(self,newpart):
         self.part = np.append(self.part,newpart)
     
-    def plot(self):                              # INTENTAR HACER UNA VASRIABLE BOOL 'YES'/'NO' PARA MOSTRAR O NO
-        x = [i.xpos for i in self.part]          # LA FIGURA Y ASÍ PODER JUGAR OCN HACER ANIMACIONES CON WHOLE
-        y = [i.ypos for i in self.part]
-        plt.xlim((0,self.Lx))
-        plt.ylim((0,self.Ly))
-        plt.scatter(x,y,marker='.')
-        plt.show(block=False)
-        plt.pause(.05)
-        plt.clf()
+    def plot(self):
+        if self.fig=='True':
+            x = [i. xpos for i in self.part]
+            y = [i.ypos for i in self.part]
+            plt.xlim((0,self.Lx))
+            plt.ylim((0,self.Ly))
+            plt.scatter(x,y,marker='.')
+            plt.show(block=False)
+            plt.pause(.05)
+            plt.clf()
+        elif (self.figyn==''):
+            print('No figure shown, write `True` as fig variable.')
+            self.figyn = '.'
 
     def nextframe(self):
         for i in range(len(self.part)):

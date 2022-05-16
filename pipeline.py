@@ -14,5 +14,5 @@ import random
 
 #CREATING A TEST UNIVERSE OF N=1000:
 
-u = universe(200,10,10)
+u = universe(200,10,10,'True')
 u.whole(10)
