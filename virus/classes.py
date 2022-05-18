@@ -66,7 +66,8 @@ class universe:
     
     def plot(self):
         if self.fig=='True':
-            x = [i. xpos for i in self.part]
+            print(len(self.part))
+            x = [i.xpos for i in self.part]
             y = [i.ypos for i in self.part]
             plt.xlim((0,self.Lx))
             plt.ylim((0,self.Ly))
